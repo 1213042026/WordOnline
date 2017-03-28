@@ -4,9 +4,37 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-beans.xml</param-value>
+  </context-param>
+  <listener>
+    <listen-class>org.springframework.web.context.ContextLoaderListener</listen-class>
+  </listener>
+
+  <filter>
+      <filter-name>HiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+    
+  <servlet>
+      <servlet-name>DispatcherServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+          <param-name>contextConfigLocation</param-name>
+          <param-value>classpath:springmvc-config.xml</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>DispatcherServlet</servlet-name>
+      <url-pattern>/</url-pattern>
+  </servlet-mapping>
   
   <!-- PageOffice Begin -->
   <servlet>
@@ -58,26 +86,5 @@
   	<extension>mht</extension>  
   	<mime-type>message/rfc822</mime-type>  
   </mime-mapping>
-  <context-param>
-  	<param-name>adminseal-password</param-name>
-  	<param-value>111111</param-value>
-  </context-param>
-  
-  <!--<context-param>
-  	<param-name>posealdb-driver</param-name>
-  	<param-value>com.mysql.jdbc.Driver</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>posealdb-url</param-name>
-  	<param-value>jdbc:mysql://localhost:3306/sample</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>posealdb-username</param-name>
-  	<param-value>root</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>posealdb-password</param-name>
-  	<param-value>admin</param-value>
-  </context-param>-->
   <!-- PageOffice End -->
 </web-app>
